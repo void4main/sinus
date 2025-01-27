@@ -1,6 +1,6 @@
-use std::f32::consts::PI;
-use bevy::prelude::*;
 use bevy::math::ops;
+use bevy::prelude::*;
+use std::f32::consts::PI;
 
 fn main() {
     App::new()
@@ -19,8 +19,10 @@ fn setup(
     mut meshes: ResMut<Assets<Mesh>>,
     mut materials: ResMut<Assets<ColorMaterial>>,
 ) {
+    // camera
     commands.spawn(Camera2d);
 
+    // Initial setup of all
     let shape = meshes.add(Circle::new(2.0));
     let num_shapes = 128;
     for i in 0..num_shapes {
@@ -38,37 +40,38 @@ fn setup(
             ),
             Ball,
         ));
-
     }
+
+    // x-coordinate
     let color = Color::hsl(0.0, 0.0, 1.0);
     commands.spawn((
         Mesh2d(meshes.add(Rectangle::new(1000.0, 1.0))),
         MeshMaterial2d(materials.add(color)),
-        Transform::from_xyz(
-            0.0,
-            0.0,
-            0.0,
-        ),
+        Transform::from_xyz(0.0, 0.0, 0.0),
     ));
 
+    // y-coordinate
     commands.spawn((
         Mesh2d(meshes.add(Rectangle::new(1.0, 400.0))),
         MeshMaterial2d(materials.add(color)),
-        Transform::from_xyz(
-            0.0,
-            0.0,
-            0.0,
-        ),
+        Transform::from_xyz(0.0, 0.0, 0.0),
     ));
 
+    let text = "Points".to_string() + ": " + num_shapes.to_string().as_str();
+    commands.spawn((
+        Text2d::new(text),
+        TextFont {
+            font_size: 18.0,
+            ..default()
+        },
+        Transform::from_translation(Vec3::new(-400.0, -250.0, 0.0)),
+    ));
 }
 
-fn sin_translation(
-    time: Res<Time>,
-    mut query: Query<&mut Transform, With<Ball>>
-) {
+fn sin_translation(time: Res<Time>, mut query: Query<&mut Transform, With<Ball>>) {
     let elements = query.iter().len();
     for (num, mut transform) in (&mut query).into_iter().enumerate() {
-        transform.translation.y = 150.0 * ops::sin(time.elapsed_secs() + 2.0 * PI / (elements as f32 + 1.0) * num as f32);
+        transform.translation.y =
+            150.0 * ops::sin(time.elapsed_secs() + 2.0 * PI / (elements as f32 + 1.0) * num as f32);
     }
 }

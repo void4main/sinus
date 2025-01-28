@@ -92,6 +92,15 @@ fn sin_translation(
                 Vec2::new(10.0, 10.0),
                 RED,
             );
+            let start_color = LinearRgba::rgb(0.0, 0.0, 0.5);
+            let end_color = LinearRgba::rgb(0.0, 0.0, 0.5);
+
+            gizmos.line_gradient(
+                Vec3::new(transform.translation.x, transform.translation.y + 40.0, 0.0),
+                Vec3::new(transform.translation.x, transform.translation.y - 40.0, 0.0),
+                start_color,
+                end_color,
+            );
         }
     }
 }

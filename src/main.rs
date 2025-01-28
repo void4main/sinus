@@ -92,12 +92,24 @@ fn sin_translation(
                 Vec2::new(10.0, 10.0),
                 RED,
             );
+
+            // no used by now
             let start_color = LinearRgba::rgb(0.0, 0.0, 0.5);
             let end_color = LinearRgba::rgb(0.0, 0.0, 0.5);
 
+            let tweak =
+                ops::sin(time.elapsed_secs() + 2.0 * PI / (elements as f32 + 1.0) * num as f32);
             gizmos.line_gradient(
-                Vec3::new(transform.translation.x, transform.translation.y + 40.0, 0.0),
-                Vec3::new(transform.translation.x, transform.translation.y - 40.0, 0.0),
+                Vec3::new(
+                    transform.translation.x,
+                    transform.translation.y + 40.0 * tweak,
+                    0.0,
+                ),
+                Vec3::new(
+                    transform.translation.x,
+                    transform.translation.y - 40.0 * tweak,
+                    0.0,
+                ),
                 start_color,
                 end_color,
             );

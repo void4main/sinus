@@ -46,7 +46,7 @@ fn setup(
         ));
     }
 
-    // x-axis
+    // x-Axis
     let color = Color::hsl(0.0, 0.0, 1.0);
     commands.spawn((
         Mesh2d(meshes.add(Rectangle::new(1000.0, 1.0))),
@@ -54,7 +54,7 @@ fn setup(
         Transform::from_xyz(0.0, 0.0, 0.0),
     ));
 
-    // y-axis
+    // y-Axis
     commands.spawn((
         Mesh2d(meshes.add(Rectangle::new(1.0, 400.0))),
         MeshMaterial2d(materials.add(color)),
@@ -93,7 +93,7 @@ fn sin_translation(
                 RED,
             );
 
-            // no used by now
+            // Colours not used by now
             let start_color = LinearRgba::rgb(0.0, 0.0, 0.5);
             let end_color = LinearRgba::rgb(0.0, 0.0, 0.5);
 
